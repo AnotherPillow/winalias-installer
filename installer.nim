@@ -1,7 +1,7 @@
 import std/[osproc, os, strutils, strformat, httpclient], json
 
 let (user, code) = execCmdEx "cmd /c echo %USERNAME%"
-let path = os.getenv("PATH")
+#let path = os.getenv("PATH")
 let winalias_path = fmt"C:\Users\{user.strip()}\AppData\Roaming\winalias\"
 
 discard os.existsOrCreateDir(winalias_path)
@@ -16,7 +16,7 @@ echo "Press OK and you may need to restart your terminal"
 
 #write "echo Hello World" to C:\Example\hello.bat
 let winalias_bat = fmt"{winalias_path}\\winalias.bat"
-let winalias_bat_content = fmt"@echo off\n'{winalias_path}\\winalias\\winalias.exe' "
+let winalias_bat_content = "@echo off\n\"" & winalias_path & "\\winalias\\winalias.exe\" %*"
 
 let batfile = open(winalias_bat, fmWrite)
 
