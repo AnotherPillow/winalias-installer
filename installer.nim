@@ -30,7 +30,7 @@ let client = newHttpClient()
 try:
     let response = client.getContent("https://api.github.com/repos/anotherpillow/winalias/releases/latest") 
     let responseJson = parseJson(response)
-    echo responseJson
+    
     let url = responseJson["assets"][0]["browser_download_url"].getStr()
     # download
     let winalias_exe = fmt"{winalias_path}\\winalias\\winalias.exe"
