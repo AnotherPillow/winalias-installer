@@ -33,17 +33,8 @@ try:
     echo responseJson
     let url = responseJson["assets"][0]["browser_download_url"].getStr()
     # download
-    let winalias_zip = fmt"{winalias_path}\\winalias.zip"
-    let winalias_zip_file = open(winalias_zip, fmWrite)
-
-    let download = client.getContent(url)
-    winalias_zip_file.write(download)
-    winalias_zip_file.close()
-
-    # unzip so that winalias.exe is in winalias_path\\winalias
-    let cmd = fmt"powershell -command 'Expand-Archive -Path {winalias_zip} -DestinationPath {winalias_path}'"
-    echo "Unzipping winalias"
-    discard execCmdEx cmd
+    let winalias_exe = fmt"{winalias_path}\\winalias\\winalias.exe"
+    client.downloadFile(url, winalias_exe)
 
 except HttpRequestError:
     echo "Failed to fetch latest release" 
